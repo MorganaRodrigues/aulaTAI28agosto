@@ -8,8 +8,9 @@
 </head>
 
 <body>
-    <form action="{{action('AlunoController@store')}}" method="post">
+    <form action="{{action('AlunoController@update')}}" method="post">
         @csrf
+    <input type="hidden" name="id" value="{{$aluno->id}}"/>
         <div>
             <ul>
                 @foreach($errors->all() as $error)
@@ -18,15 +19,15 @@
             </ul>
         </div>
         <label>Nome</label>
-        <input type="text" name="nome" /> <br>
+        <input type="text" name="nome" value="{{$aluno->nome}}" /> <br>
 
         <label>Curso</label>
-        <input type="text" name="curso"/> <br>
+        <input type="text" name="curso" value="{{$aluno->curso}}"/> <br>
 
         <label>Turma</label>
-        <input type="text" name="turma"/> <br>
+        <input type="text" name="turma" value="{{$aluno->turma}}"/> <br>
 
-        <button type="submit">Salvar</button>
+        <button type="submit">Atualizar</button>
     <a href="{{url('aluno')}}">Voltar</a>
     </form>
 </body>
