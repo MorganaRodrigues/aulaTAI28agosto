@@ -25,7 +25,9 @@ Route::get("/alunos", function(){
 
 Route::get('/aluno', 'AlunoController@index');
 Route::get('/aluno/edit/{id}', 'AlunoController@edit'); //chama o formulario
-Route::post('/aluno/update/', 'AlunoController@update'); //
+Route::get('/aluno/remove/{id}', 'AlunoController@remove');
+Route::post('/aluno/search/', 'AlunoController@search');
+Route::post('/aluno/update/', 'AlunoController@update');
 Route::get('/aluno/create', 'AlunoController@create'); //carrega o formulário
 Route::post('/aluno/store', 'AlunoController@store'); //salvar os dados do formulário
 
