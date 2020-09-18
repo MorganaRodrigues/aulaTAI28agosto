@@ -31,6 +31,10 @@ Route::post('/aluno/update/', 'AlunoController@update');
 Route::get('/aluno/create', 'AlunoController@create'); //carrega o formulário
 Route::post('/aluno/store', 'AlunoController@store'); //salvar os dados do formulário
 
+Route::get('/curso', 'CursoController@index');
+Route::get('/curso/create', 'CursoController@create'); //carrega o formulário
+Route::post('/curso/store', 'CursoController@store'); //salvar os dados do formulário
+
 
 /*
 Route::get("/alunos_", "AlunoController@listar");
