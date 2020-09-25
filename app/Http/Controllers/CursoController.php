@@ -22,7 +22,7 @@ class CursoController extends Controller
             $objCurso1->abreviatura = 'INFO01';
 
             $objCurso2 = new stdClass();
-            $objCurso2->id = 1;
+            $objCurso2->id = 2;
             $objCurso2->nome = 'Técnico em Alimentos';
             $objCurso2->abreviatura = 'ALI01';
 

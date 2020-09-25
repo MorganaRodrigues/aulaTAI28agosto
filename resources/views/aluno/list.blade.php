@@ -6,47 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+@extends('layouts.app')
 
-<body>
-    <a href="{{url('/')}}">Home</a>
-    <a href="{{url('/aluno/create')}}">Cadastrar</a>
-    <form action="{{action('AlunoController@search')}}" method="POST">
-        @csrf
-        <label>nome</label>
-        <input type="text" name="nome" />
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Listagem de alunos') }}</div>
 
-        <label>curso</label>
-        <input type="text" name="curso" />
-        <button type="submit">Buscar</button>
-    </form>
-    <h3>Listagem de alunos</h3>
+                <div class="card-body">
 
-    <table>
-        <tbody>
+                    <body>
+                        <form action="{{action('AlunoController@search')}}" method="POST">
+                            @csrf
+                            <div class="form-row">
+                                <div class="col-6">
+                                    <input type="text" class="form-control" placeholder="Pesquisar nome" name="nome" />
+                                </div>
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary"> <i class="fa fa-search"></i> Buscar</button>
 
-            <tr>
-                <td>ID</td>
-                <td>Nome</td>
-                <td>Curso</td>
-                <td>Turma</td>
-            </tr>
-        </tbody>
-        @foreach($alunos as $dados)
-        <tr>
+                                    <a href="{{ url('/curso/create')}}" class="btn btn-primary"> <i class="fa fa-plus-circle"></i>  Cadastrar</a>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Curso</th>
+                                    <th scope="col">Turma</th>
+                                    <th scope="col">Ação</th>
+                                    <th scope="col">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($alunos as $dados)
+                                <tr>
 
-            <td>{{$dados->id}}</td>
-            <td>{{$dados->nome}}</td>
-            <td>{{$dados->curso}}</td>
-            <td>{{$dados->turma}}</td>
-            <td><a href="{{action('AlunoController@edit', $dados->id)}}">Editar</a></td>
-            <td><a href="{{action('AlunoController@remove', $dados->id)}}"
-                    onclick="return confirm('Tem certeza que deseja remover?')">Remover</a></td>
+                                    <td>{{$dados->id}}</td>
+                                    <td>{{$dados->nome}}</td>
+                                    <td>{{$dados->curso}}</td>
+                                    <td>{{$dados->turma}}</td>
+                                    <td><a href="{{action('AlunoController@edit', $dados->id)}}" class="btn btn-primary"> <i class="fa fa-edit"></i> Editar</a></td>
+                                    <td><a href="{{action('AlunoController@remove', $dados->id)}}"
+                                            onclick="return confirm('Tem certeza que deseja remover?')"  class="btn btn-primary"> <i class="fa fa-trash"></i> Remover</a></td>
 
-        </tr>
-        @endforeach
-    </table>
-</body>
+                                </tr>
+                                @endforeach
+                        </table>
+                    </body>
 
-</body>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
 
 </html>
