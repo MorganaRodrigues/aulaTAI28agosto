@@ -50,9 +50,9 @@
                                     <td>{{$dados->nome}}</td>
                                     <td>{{$dados->abreviatura}}</td>
 
-                                    <td><a href="{{--action('AlunoController@edit', $dados->id)--}}"
+                                    <td><a href="{{action('CursoController@edit', $dados->id)}}"
                                             class="btn btn-primary"> <i class="fa fa-edit"></i> Editar</a></td>
-                                    <td><a href="{{--action('AlunoController@remove', $dados->id)--}}"
+                                    <td><a href="{{action('CursoController@remove', $dados->id)}}"
                                             onclick="return confirm('Tem certeza que deseja remover?')"
                                             class="btn btn-primary"> <i class="fa fa-trash"></i> Remover</a></td>
 

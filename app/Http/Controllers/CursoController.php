@@ -15,6 +15,7 @@ class CursoController extends Controller
      */
     public function index()
     {
+        /*
         if (!\session()->has('cursos')) {
             $objCurso1 = new stdClass();
             $objCurso1->id = 1;
@@ -30,10 +31,11 @@ class CursoController extends Controller
 
             \session(['cursos' => $vetorCurso]);
         }
+        */
 
         //$objCursos = CursoModel::orderBy('id')->get();
 
-        $objCursos = session('cursos');
+        $objCursos = CursoModel::orderBy('id')->get();
 
         return view('curso.list')->with('cursos', $objCursos);
     }
@@ -56,15 +58,11 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
-        $objCurso = new stdClass();
-        $objCurso->id = rand(1, 1000);
+        $objCurso = new CursoModel();
         $objCurso->nome = $request->nome;
         $objCurso->abreviatura = $request->abreviatura;
 
-        $vetorCurso = \session('cursos');
-        $vetorCurso[] = $objCurso;
-
-        session(['cursos' => $vetorCurso]);
+        $objCurso->save();
 
         return redirect()->action('CursoController@index')->with('sucess', 'Curso salvo!');
     }
@@ -86,9 +84,12 @@ class CursoController extends Controller
      * @param  \App\CursoModel  $cursoModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(CursoModel $cursoModel)
+    public function edit($id)
     {
-        //
+        //select * from curso where id = $id
+        $objCurso = CursoModel::findOrfail($id);
+
+        return view('curso.edit')->with('curso', $objCurso);
     }
 
     /**
@@ -98,9 +99,16 @@ class CursoController extends Controller
      * @param  \App\CursoModel  $cursoModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CursoModel $cursoModel)
+    public function update(Request $request)
     {
-        //
+        $objCurso = CursoModel::findOrfail($request->id);
+        $objCurso->nome = $request->nome;
+        $objCurso->abreviatura = $request->abreviatura;
+
+        $objCurso->save();
+
+        return redirect()->action('CursoController@index')
+            ->with('success', 'Curso Salvo com sucesso.');
     }
 
     /**
@@ -109,8 +117,12 @@ class CursoController extends Controller
      * @param  \App\CursoModel  $cursoModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CursoModel $cursoModel)
+    public function remove($id)
     {
-        //
+        $objCurso = CursoModel::findOrfail($id);
+        $objCurso->delete();
+
+        return redirect()->action('CursoController@index')
+            ->with('success', 'Curso Removido com sucesso.');
     }
 }

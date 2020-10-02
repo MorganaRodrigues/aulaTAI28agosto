@@ -38,5 +38,8 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/curso', 'CursoController@index');
     Route::get('/curso/create', 'CursoController@create'); //carrega o formulário
     Route::post('/curso/store', 'CursoController@store'); //salvar os dados do formulário
+    Route::get('/curso/edit/{id}', 'CursoController@edit');
+    Route::get('/curso/remove/{id}', 'CursoController@remove');
+    Route::post('/curso/update/', 'CursoController@update');
 });
 
