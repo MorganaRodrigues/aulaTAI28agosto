@@ -17,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/turma/store', 'Api\TurmaController@store'); //GET PEGA, POST CRIA, O PUT EDITA E O DELETE DELETAR
