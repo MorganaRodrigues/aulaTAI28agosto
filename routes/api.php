@@ -18,4 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/turma/store', 'Api\TurmaController@store'); //GET PEGA, POST CRIA, O PUT EDITA E O DELETE DELETAR
+Route::post('/turma/store', 'Api\TurmaController@store'); //salva os dados
+
+Route::get('/turma', 'Api\TurmaController@index'); //carrega os dados do BD
+
+Route::put('/turma/update/{id}', 'Api\TurmaController@update'); //atualiza os dados
+
+Route::get('/turma/{id}', 'Api\TurmaController@show'); //carrega/mostra os dados do BD pelo id
+
+Route::delete('/turma/{id}', 'Api\TurmaController@destroy'); //deleta os dados do BD pelo id
+
+Route::post('/turma/search', 'Api\TurmaController@search'); //busca os dados
+

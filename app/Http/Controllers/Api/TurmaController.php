@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\TurmaModel;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class TurmaController extends Controller
 {
@@ -16,7 +16,9 @@ class TurmaController extends Controller
      */
     public function index()
     {
-        //
+        $objTurma = TurmaModel::orderBy('id')->get();
+       // dd( $objTurma);
+       return $objTurma;
     }
 
 
@@ -37,10 +39,11 @@ class TurmaController extends Controller
      * @param  \App\TurmaModel  $turmaModel
      * @return \Illuminate\Http\Response
      */
-    public function show(TurmaModel $turmaModel)
+    public function show($id)
     {
-        //
-    }
+        $objTurma = TurmaModel::findOrFail($id);
+        return $objTurma;
+        }
 
 
     /**
@@ -50,9 +53,10 @@ class TurmaController extends Controller
      * @param  \App\TurmaModel  $turmaModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TurmaModel $turmaModel)
+    public function update(Request $request, $id)
     {
-        //
+        $objTurma = TurmaModel::findOrFail($id);
+        return $objTurma->update($request->all());
     }
 
     /**
@@ -61,8 +65,27 @@ class TurmaController extends Controller
      * @param  \App\TurmaModel  $turmaModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TurmaModel $turmaModel)
+    public function destroy($id)
     {
-        //
+        $objTurma = TurmaModel::findOrFail($id);
+        return  $objTurma->delete();
+    }
+
+
+    public function search(Request $request)
+    {
+        $query = DB::table('turma');
+
+        if (!empty($request->nome)) {
+            $query->where('nome', 'like', "%" . $request->nome .  "%");
+        }
+
+        if (!empty($request->sigla)) {
+            $query->where('sigla', 'like', "%" . $request->sigla .  "%");
+        }
+
+       $objTurma = $query->orderBy('id')->get();
+
+       return  $objTurma;
     }
 }
