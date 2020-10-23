@@ -7,7 +7,7 @@ use App\TurmaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class TurmaController extends Controller
+class TurmaApiController extends Controller
 {
     /**
      * Display a listing of the resource.

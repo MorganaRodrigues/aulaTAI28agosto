@@ -18,15 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/turma/store', 'Api\TurmaController@store'); //salva os dados
+Route::post('/turma/store', 'Api\TurmaApiController@store'); //salva os dados
 
-Route::get('/turma', 'Api\TurmaController@index'); //carrega os dados do BD
+Route::get('/turma', 'Api\TurmaApiController@index'); //carrega os dados do BD
 
-Route::put('/turma/update/{id}', 'Api\TurmaController@update'); //atualiza os dados
+Route::put('/turma/update/{id}', 'Api\TurmaApiController@update'); //atualiza os dados
 
-Route::get('/turma/{id}', 'Api\TurmaController@show'); //carrega/mostra os dados do BD pelo id
+Route::get('/turma/{id}', 'Api\TurmaApiController@show'); //carrega/mostra os dados do BD pelo id
 
-Route::delete('/turma/{id}', 'Api\TurmaController@destroy'); //deleta os dados do BD pelo id
+Route::delete('/turma/{id}', 'Api\TurmaApiController@destroy'); //deleta os dados do BD pelo id
 
-Route::post('/turma/search', 'Api\TurmaController@search'); //busca os dados
+Route::post('/turma/search', 'Api\TurmaApiController@search'); //busca os dados
 
