@@ -15,10 +15,8 @@ class TurmaController extends Controller
      */
     public function index()
     {
-        $response = Http::get('http://localhost:8000/api/turma/');
-        // dd($reponse->json());
+        $response = Http::get('http://localhost:8000/api/turma');
         $objTurma = json_decode(json_encode($response->json()));
-        //  dd( $objTurma);
         return view('turma.list')->with('turmas', $objTurma);
     }
 
@@ -29,7 +27,7 @@ class TurmaController extends Controller
      */
     public function create()
     {
-        //
+        return view("turma.create");
     }
 
     /**
@@ -40,7 +38,22 @@ class TurmaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required|max:100',
+            'sigla' => 'required|max:100',
+            'curso_id' => 'required',
+        ]);
+
+        $objTurma = new TurmaModel();
+        $objTurma->nome = $request->nome;
+        $objTurma->sigla = $request->sigla;
+        $objTurma->curso_id = $request->curso_id;
+
+        //dd($objTurma);
+
+        $objTurma->save();
+
+        return \redirect()->action('TurmaController@index')->with('sucess', "Turma salva");
     }
 
     /**
@@ -60,9 +73,10 @@ class TurmaController extends Controller
      * @param  \App\TurmaModel  $turmaModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(TurmaModel $turmaModel)
+    public function edit($id)
     {
-        //
+        $objTurma = TurmaModel::findorfail($id);
+        return view('turma.edit')->with('turma', $objTurma);
     }
 
     /**
@@ -74,7 +88,22 @@ class TurmaController extends Controller
      */
     public function update(Request $request, TurmaModel $turmaModel)
     {
-        //
+        $request->validate([
+            'nome' => 'required|max:100',
+            'sigla' => 'required|max:100',
+            'curso_id' => 'required',
+        ]);
+
+        $objTurma = TurmaModel::findorfail($request->id);
+        $objTurma->nome = $request->nome;
+        $objTurma->sigla = $request->sigla;
+        $objTurma->curso_id = $request->curso_id;
+
+        //dd($objAluno);
+
+        $objTurma->save();
+
+        return redirect()->action('TurmaController@index')->with('sucess', "Turma editada!");
     }
 
     /**
@@ -87,4 +116,28 @@ class TurmaController extends Controller
     {
         //
     }
+
+    public function remove($id)
+    {
+        $objTurma = TurmaModel::findOrFail($id);
+
+        $objTurma->delete();
+
+        return redirect()->action('TurmaController@index')->with('sucess', "Turma removida!");
+    }
+
+    public function search(Request $request)
+    {
+
+        if (!empty($request->nome)) {
+            $objTurma = TurmaModel::where('nome', 'like', '%' . $request->nome . '%')->get();
+        } else if (!empty($request->sigla)) {
+            $objTurma = TurmaModel::where('sigla', 'like', '%' . $request->sigla . '%')->get();
+        } else {
+            $objTurma = TurmaModel::orderBy('id')->get();
+        }
+
+        return view('turma.list')->with('turmas', $objTurma);
+    }
+
 }
