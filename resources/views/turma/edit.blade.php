@@ -1,35 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Formulário turmas') }}</div>
 
-<body>
-    <form action="{{action('AlunoController@update')}}" method="post">
-        @csrf
-    <input type="hidden" name="id" value="{{$aluno->id}}"/>
-        <div>
-            <ul>
-                @foreach($errors->all() as $error)
-                <li>{{$error}}</li>
-                @endforeach
-            </ul>
+                <div class="card-body">
+                    @if($errors->any())
+                    <div>
+                        <ul>
+                            @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    <form action="{{action('TurmaController@update')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="id" value="{{$turma->id}}" />
+                        <div class="form-row">
+                            <div class="col">
+                                <label>Nome</label>
+                                <input type="text" name="nome" value="{{$turma->nome}}" /> <br>
+
+                            </div>
+                            <div class="col">
+
+                                <label>Sigla</label>
+                                <input type="text" name="sigla" value="{{$turma->sigla}}" /> <br>
+                            </div>
+
+                            <div class="col">
+
+                                <label>Curso ID</label>
+                                <input type="text" name="curso_id" value="{{$turma->curso_id}}" /> <br>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success"> <i class="fa fa-save"> </i>
+                                    Salvar</button>
+                                <a href="{{url('turma')}}" class="btn btn-primary"> <i class="fa fa-arrow-left"> </i>
+                                    Voltar</a>
+                            </div>
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <label>Nome</label>
-        <input type="text" name="nome" value="{{$aluno->nome}}" /> <br>
-
-        <label>Curso</label>
-        <input type="text" name="curso" value="{{$aluno->curso}}"/> <br>
-
-        <label>Turma</label>
-        <input type="text" name="turma" value="{{$aluno->turma}}"/> <br>
-
-        <button type="submit">Atualizar</button>
-    <a href="{{url('aluno')}}">Voltar</a>
-    </form>
-</body>
-
-</html>
+    </div>
+</div>
+@endsection

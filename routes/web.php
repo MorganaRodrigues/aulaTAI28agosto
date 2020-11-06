@@ -26,7 +26,7 @@ Route::get("/alunos", function(){
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware'=>'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/aluno', 'AlunoController@index');
     Route::get('/aluno/edit/{id}', 'AlunoController@edit'); //chama o formulario
     Route::get('/aluno/remove/{id}', 'AlunoController@remove');
@@ -42,15 +42,14 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/curso/remove/{id}', 'CursoController@remove');
     Route::post('/curso/update/', 'CursoController@update');
 
-    /*
+
     Route::get('/turma', 'TurmaController@index');
     Route::get('/turma/create', 'TurmaController@create'); //carrega o formulário
     Route::post('/turma/store', 'TurmaController@store'); //salvar os dados do formulário
     Route::get('/turma/edit/{id}', 'TurmaController@edit');
-    Route::get('/turma/remove/{id}', 'TurmaController@remove');
+    Route::get('/turma/remove/{id}', 'TurmaController@destroy');
     Route::post('/turma/update/', 'TurmaController@update');
-    */
-    Route::resource('turma', 'TurmaController');
+    Route::post('/turma/search/', 'TurmaController@search');
 
+    //Route::resource('turma', 'TurmaController');
 });
-
